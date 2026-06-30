@@ -1,1 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Rajni — Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --ink: #1a1410;
+    --paper: #faf8f4;
+    --blush: #c9726b;
+    --blush-light: #f0dbd9;
+    --warm-mid: #7c6b5e;
+    --rule: rgba(26,20,16,0.12);
+  }
 
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    font-size: 15px;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 1.1rem 3rem;
+    background: rgba(250,248,244,0.92);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--rule);
+  }
+  .nav-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.25rem;
+    font-weight: 400;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink);
+  }
+  .nav-links { display: flex; gap: 2rem; }
+  .nav-links a {
+    text-decoration: none;
+    font-size: 0.78rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--warm-mid);
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--blush); }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: flex; align-items: center;
+    padding: 7rem 3rem 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-bg-circle {
+    position: absolute; right: -8vw; top: 50%;
+    transform: translateY(-50%);
+    width: 55vw; height: 55vw;
+    max-width: 640px; max-height: 640px;
+    border-radius: 50%;
+    background: var(--blush-light);
+    opacity: 0.55;
+    z-index: 0;
+  }
+  .hero-content { position: relative; z-index: 1; max-width: 640px; }
+  .hero-eyebrow {
+    font-size: 0.7rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--blush);
+    font-weight: 500;
+    margin-bottom: 1.2rem;
+  }
+  .hero h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(3.5rem, 8vw, 6.5rem);
+    font-weight: 300;
+    line-height: 1.0;
+    letter-spacing: -0.01em;
+    margin-bottom: 1.5rem;
+  }
+  .hero h1 em {
+    font-style: italic;
+    color: var(--blush);
+  }
+  .hero-bio {
+    font-size: 1.05rem;
+    color: var(--warm-mid);
+    max-width: 440px;
+    margin-bottom: 2.5rem;
+    line-height: 1.75;
+  }
+  .hero-cta {
+    display: inline-flex; gap: 1rem; align-items: center;
+    flex-wrap: wrap;
+  }
+  .btn {
+    display: inline-block;
+    padding: 0.75rem 1.8rem;
+    font-size: 0.78rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    font-weight: 500;
+    text-decoration: none;
+    border-radius: 2px;
+    transition: all 0.25s;
+    cursor: pointer;
+    border: none;
+  }
+  .btn-primary { background: var(--ink); color: var(--paper); }
+  .btn-primary:hover { background: var(--blush); }
+  .btn-outline { background: transparent; color: var(--ink); border: 1.5px solid var(--ink); }
+  .btn-outline:hover { border-color: var(--blush); color: var(--blush); }
+
+  /* ── SECTIONS ── */
+  section { padding: 5rem 3rem; }
+  section + section { border-top: 1px solid var(--rule); }
+
+  .section-label {
+    font-size: 0.68rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--blush);
+    font-weight: 500;
+    margin-bottom: 2.5rem;
+    display: flex; align-items: center; gap: 0.8rem;
+  }
+  .section-label::after {
+    content: '';
+    display: block;
+    height: 1px;
+    width: 40px;
+    background: var(--blush);
+    opacity: 0.5;
+  }
+
+  h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 300;
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
+  }
+
+  /* ── ABOUT ── */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: start;
+    max-width: 960px;
+  }
+  .about-text p {
+    color: var(--warm-mid);
+    margin-bottom: 1rem;
+  }
+  .about-info { display: flex; flex-direction: column; gap: 0; }
+  .info-row {
+    display: flex;
+    padding: 0.8rem 0;
+    border-bottom: 1px solid var(--rule);
+    gap: 1.5rem;
+  }
+  .info-row:first-child { border-top: 1px solid var(--rule); }
+  .info-label {
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--blush);
+    font-weight: 500;
+    min-width: 110px;
+    padding-top: 0.05em;
+  }
+  .info-value { font-size: 0.9rem; color: var(--ink); }
+
+  /* ── EDUCATION ── */
+  .edu-list { display: flex; flex-direction: column; gap: 0; max-width: 720px; }
+  .edu-item {
+    display: grid;
+    grid-template-columns: 80px 1fr;
+    gap: 1.5rem;
+    padding: 1.8rem 0;
+    border-bottom: 1px solid var(--rule);
+    align-items: start;
+  }
+  .edu-item:first-child { border-top: 1px solid var(--rule); }
+  .edu-year {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem;
+    font-weight: 300;
+    color: var(--blush);
+    line-height: 1.1;
+    padding-top: 0.1rem;
+  }
+  .edu-degree {
+    font-weight: 500;
+    margin-bottom: 0.2rem;
+  }
+  .edu-inst {
+    font-size: 0.88rem;
+    color: var(--warm-mid);
+    margin-bottom: 0.2rem;
+  }
+  .edu-score {
+    font-size: 0.8rem;
+    color: var(--blush);
+    font-weight: 500;
+    letter-spacing: 0.05em;
+  }
+
+  /* ── SKILLS ── */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+    max-width: 860px;
+  }
+  .skill-card {
+    background: white;
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    padding: 1.6rem;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .skill-card:hover {
+    border-color: var(--blush);
+    box-shadow: 0 4px 20px rgba(201,114,107,0.1);
+  }
+  .skill-icon {
+    font-size: 1.6rem;
+    margin-bottom: 0.8rem;
+  }
+  .skill-name {
+    font-weight: 500;
+    margin-bottom: 0.35rem;
+  }
+  .skill-note {
+    font-size: 0.82rem;
+    color: var(--warm-mid);
+  }
+
+  /* ── STRENGTHS ── */
+  .strengths-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.2rem;
+    max-width: 860px;
+  }
+  .strength-item {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+    padding: 1.4rem;
+    background: var(--blush-light);
+    border-radius: 4px;
+  }
+  .strength-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--blush);
+    margin-top: 0.55rem;
+    flex-shrink: 0;
+  }
+  .strength-text { font-size: 0.9rem; }
+
+  /* ── HOBBIES ── */
+  .hobbies-track {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    max-width: 700px;
+  }
+  .hobby-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1.1rem;
+    border: 1.5px solid var(--rule);
+    border-radius: 100px;
+    font-size: 0.85rem;
+    color: var(--warm-mid);
+    transition: all 0.2s;
+  }
+  .hobby-tag:hover { border-color: var(--blush); color: var(--blush); }
+
+  /* ── CONTACT ── */
+  .contact-block {
+    max-width: 560px;
+  }
+  .contact-block p {
+    color: var(--warm-mid);
+    margin-bottom: 2rem;
+  }
+  .contact-details { display: flex; flex-direction: column; gap: 0; }
+  .contact-row {
+    display: flex;
+    gap: 1.5rem;
+    padding: 0.9rem 0;
+    border-bottom: 1px solid var(--rule);
+    align-items: center;
+  }
+  .contact-row:first-child { border-top: 1px solid var(--rule); }
+  .contact-lbl {
+    font-size: 0.7rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--blush);
+    font-weight: 500;
+    min-width: 80px;
+  }
+  .contact-val {
+    font-size: 0.92rem;
+    color: var(--ink);
+  }
+  .contact-val a { color: inherit; text-decoration: underline; text-underline-offset: 3px; }
+  .contact-val a:hover { color: var(--blush); }
+
+  /* ── FOOTER ── */
+  footer {
+    padding: 2rem 3rem;
+    border-top: 1px solid var(--rule);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.78rem;
+    color: var(--warm-mid);
+    letter-spacing: 0.06em;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 700px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { gap: 1rem; }
+    .hero { padding: 6rem 1.5rem 3rem; }
+    .hero-bg-circle { width: 90vw; height: 90vw; right: -20vw; opacity: 0.3; }
+    section { padding: 3.5rem 1.5rem; }
+    .about-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .edu-item { grid-template-columns: 60px 1fr; gap: 1rem; }
+    footer { padding: 1.5rem; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { transition: none !important; animation: none !important; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <span class="nav-name">Rajni</span>
+  <div class="nav-links">
+    <a href="#about">About</a>
+    <a href="#education">Education</a>
+    <a href="#skills">Skills</a>
+    <a href="#contact">Contact</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-bg-circle"></div>
+  <div class="hero-content">
+    <p class="hero-eyebrow">Open to opportunities · Punjab</p>
+    <h1>Hello, I'm<br/><em>Rajni</em></h1>
+    <p class="hero-bio">
+      A motivated Arts graduate with a strong technical foundation and a genuine love for learning. I bring discipline, adaptability, and a willingness to grow with every challenge I take on.
+    </p>
+    <div class="hero-cta">
+      <a href="#contact" class="btn btn-primary">Get in Touch</a>
+      <a href="#education" class="btn btn-outline">My Background</a>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-label">About Me</div>
+  <div class="about-grid">
+    <div class="about-text">
+      <h2>Eager to learn,<br/>ready to contribute.</h2>
+      <p>
+        I completed my Graduation in Arts from Punjabi University Patiala in 2024, and have since built a solid technical skill set through a Computer Operator and Programming Assistant course from Govt. ITI Ropar (affiliated with NCVT, Delhi).
+      </p>
+      <p>
+        I am a fresher who is confident, self-disciplined, and genuinely excited to start contributing to an organisation. I adapt quickly to new environments and believe that hard work and sincerity are the foundations of any good career.
+      </p>
+    </div>
+    <div class="about-info">
+      <div class="info-row"><span class="info-label">Name</span><span class="info-value">Rajni</span></div>
+      <div class="info-row"><span class="info-label">Gender</span><span class="info-value">Female</span></div>
+      <div class="info-row"><span class="info-label">Nationality</span><span class="info-value">Indian</span></div>
+      <div class="info-row"><span class="info-label">Languages</span><span class="info-value">English, Hindi, Punjabi</span></div>
+      <div class="info-row"><span class="info-label">Location</span><span class="info-value">Adarsh Nagar, Punjab – 140001</span></div>
+      <div class="info-row"><span class="info-label">Preference</span><span class="info-value">Anywhere in Punjab</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education">
+  <div class="section-label">Education</div>
+  <h2>Academic &amp; Technical<br/>Background</h2>
+  <div class="edu-list">
+    <div class="edu-item">
+      <div class="edu-year">2024</div>
+      <div>
+        <div class="edu-degree">Bachelor of Arts (Graduation)</div>
+        <div class="edu-inst">Punjabi University, Patiala</div>
+        <div class="edu-score">71%</div>
+      </div>
+    </div>
+    <div class="edu-item">
+      <div class="edu-year">2024–25</div>
+      <div>
+        <div class="edu-degree">Computer Operator &amp; Programming Assistant (COPA)</div>
+        <div class="edu-inst">Govt. Industrial Training Institute (Women), Ropar · Affiliated to NCVT, Delhi</div>
+        <div class="edu-score">One-year certified course</div>
+      </div>
+    </div>
+    <div class="edu-item">
+      <div class="edu-year">2021</div>
+      <div>
+        <div class="edu-degree">Higher Secondary — 12th Arts</div>
+        <div class="edu-inst">Punjab School Education Board, Mohali</div>
+        <div class="edu-score">82%</div>
+      </div>
+    </div>
+    <div class="edu-item">
+      <div class="edu-year">2019</div>
+      <div>
+        <div class="edu-degree">Matriculation — 10th</div>
+        <div class="edu-inst">Punjab School Education Board, Mohali</div>
+        <div class="edu-score">85%</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-label">Skills &amp; Tools</div>
+  <h2>What I work with</h2>
+  <div class="skills-grid">
+    <div class="skill-card">
+      <div class="skill-icon">📊</div>
+      <div class="skill-name">Tally</div>
+      <div class="skill-note">Basic knowledge of accounting &amp; bookkeeping</div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">🎨</div>
+      <div class="skill-name">Photoshop / Canva</div>
+      <div class="skill-note">Digital design and visual content creation</div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">🤖</div>
+      <div class="skill-name">AI Tools</div>
+      <div class="skill-note">Comfortable using modern AI software</div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">💻</div>
+      <div class="skill-name">Computer Operations</div>
+      <div class="skill-note">Programming assistant certification (NCVT)</div>
+    </div>
+  </div>
+
+  <div class="section-label" style="margin-top: 3.5rem;">Strengths</div>
+  <div class="strengths-list">
+    <div class="strength-item"><div class="strength-dot"></div><div class="strength-text">Adapts easily to new environments and teams</div></div>
+    <div class="strength-item"><div class="strength-dot"></div><div class="strength-text">Driven by hard work and determination</div></div>
+    <div class="strength-item"><div class="strength-dot"></div><div class="strength-text">Self-disciplined, sincere, and focused</div></div>
+    <div class="strength-item"><div class="strength-dot"></div><div class="strength-text">Confident with a strong sense of purpose</div></div>
+  </div>
+
+  <div class="section-label" style="margin-top: 3.5rem;">Interests &amp; Hobbies</div>
+  <div class="hobbies-track">
+    <span class="hobby-tag">🎧 Motivational Lectures</span>
+    <span class="hobby-tag">🎮 Indoor Games</span>
+    <span class="hobby-tag">🎬 Inspirational Movies</span>
+    <span class="hobby-tag">📚 Reading Books</span>
+    <span class="hobby-tag">✏️ Teaching</span>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-label">Contact</div>
+  <div class="contact-block">
+    <h2>Let's connect</h2>
+    <p>
+      I am actively looking for opportunities across Punjab. If you think I'd be a good fit for your team, I would love to hear from you.
+    </p>
+    <div class="contact-details">
+      <div class="contact-row">
+        <span class="contact-lbl">Phone</span>
+        <span class="contact-val"><a href="tel:+916283500554">+91 6283500554</a></span>
+      </div>
+      <div class="contact-row">
+        <span class="contact-lbl">Email</span>
+        <span class="contact-val"><a href="mailto:rajni875589@gmail.com">rajni875589@gmail.com</a></span>
+      </div>
+      <div class="contact-row">
+        <span class="contact-lbl">Location</span>
+        <span class="contact-val">Adarsh Nagar, Punjab – 140001</span>
+      </div>
+      <div class="contact-row">
+        <span class="contact-lbl">Available</span>
+        <span class="contact-val">Anywhere in Punjab</span>
+      </div>
+    </div>
+    <div style="margin-top: 2rem;">
+      <a href="mailto:rajni875589@gmail.com" class="btn btn-primary">Send an Email</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span>© 2025 Rajni &nbsp;·&nbsp; Punjab, India</span>
+  <span>Open to work</span>
+</footer>
+
+</body>
+</html>
